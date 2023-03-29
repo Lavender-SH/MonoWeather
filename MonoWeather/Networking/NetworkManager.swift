@@ -14,6 +14,10 @@ protocol WeatherManagerDelegate {
 }
 
 struct WeatherManager{
+    
+    static let shared = WeatherManager()
+    private init() {}
+    
     let weatherURL = "https://api.openweathermap.org/data/2.5/weather?appid=82ba15ba68cefeff502358350f966d4d&units=metric"
     var delegate: WeatherManagerDelegate?
     
@@ -26,7 +30,7 @@ struct WeatherManager{
         let urlString = "\(weatherURL)&q=\(cityName)"
         performRequest(with: urlString)
     }
-    func performRequest(with urlString: String){
+    private func performRequest(with urlString: String){
         
         //1. URL 인스턴스 생성
         if let url = URL(string: urlString){
@@ -52,7 +56,7 @@ struct WeatherManager{
             task.resume()
         }
     }
-    func parseJSON(weatherData: Data)->WeatherModel? {
+    private func parseJSON(weatherData: Data)->WeatherModel? {
         
         let decoder = JSONDecoder() //an object that can decode JSON Objects
         

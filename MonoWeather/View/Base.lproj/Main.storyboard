@@ -178,7 +178,9 @@
                     </view>
                     <navigationItem key="navigationItem" title="메인화면" id="q2c-Xs-Vc8"/>
                     <connections>
-                        <outlet property="ondoLB" destination="qV0-6B-5Me" id="Ybd-l8-y3h"/>
+                        <outlet property="cityLabel" destination="MQt-wr-UpF" id="FHg-m7-aR5"/>
+                        <outlet property="conditionImageview" destination="UHW-Pj-FlU" id="KNy-Iy-9EM"/>
+                        <outlet property="temperatureLabel" destination="qV0-6B-5Me" id="nZp-VP-Huz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -226,6 +228,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="QUc-9R-zOf" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="1Ly-ib-dsF">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>

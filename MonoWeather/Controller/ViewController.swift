@@ -8,12 +8,15 @@
 import UIKit
 import CoreLocation
 
-class ViewController: UIViewController, CLLocationManagerDelegate{
+class ViewController: UIViewController {
     
 
-    @IBOutlet weak var ondoLB: UILabel!
+    @IBOutlet weak var temperatureLabel: UILabel!
+    @IBOutlet weak var conditionImageview: UIImageView!
+    @IBOutlet weak var cityLabel: UILabel!
     
-    var weatherManager = WeatherManager()
+    
+    var weatherManager = WeatherManager.shared
     let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
@@ -21,15 +24,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
         setting()
         locationManager.delegate = self
         weatherManager.delegate = self
-        searchTextfield.delegate = self
-        
+        //searchTextfield.delegate = self
         
         locationManager.requestLocation()
         locationManager.requestWhenInUseAuthorization()
     }
-
-    
-    
     
     
     func setting(){
@@ -55,3 +54,35 @@ class ViewController: UIViewController, CLLocationManagerDelegate{
     }
 }
 
+
+
+// MARK: - 확장 WeatherManagerDelegate
+extension ViewController: WeatherManagerDelegate {
+    func didUpdateWeather(_weatherManager: WeatherManager, weather: WeatherModel) {
+        DispatchQueue.main.async {
+            self.temperatureLabel.text = weather.temperatureString
+            self.conditionImageview.image = UIImage(systemName: weather.conditionName)
+            self.cityLabel.text = weather.cityName
+        }
+    }
+    func didFailWithError(error: Error) {
+        print(error)
+    }
+}
+
+
+// MARK: - 확장 CLLocationManagerDelegate
+extension ViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.last{
+            locationManager.stopUpdatingLocation()
+            let lat = location.coordinate.latitude
+            let lon = location.coordinate.longitude
+            weatherManager.fetchWeather(latitude: lat, longitude: lon)
+        }
+    }
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
+    }
+
+}
