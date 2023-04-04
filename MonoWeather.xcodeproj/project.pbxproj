@@ -16,8 +16,6 @@
 		02C01B5B29CC42FF002A245D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02C01B5A29CC42FF002A245D /* Assets.xcassets */; };
 		02C01B5E29CC42FF002A245D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02C01B5C29CC42FF002A245D /* LaunchScreen.storyboard */; };
 		02C01B6A29CC5CD4002A245D /* WeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C01B6929CC5CD4002A245D /* WeatherModel.swift */; };
-		02C01B6C29CC8A48002A245D /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C01B6B29CC8A48002A245D /* FirstViewController.swift */; };
-		02C01B6E29CC8AC3002A245D /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C01B6D29CC8AC3002A245D /* SecondViewController.swift */; };
 		02C01B7029CC8F32002A245D /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C01B6F29CC8F32002A245D /* SettingViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -34,8 +32,6 @@
 		02C01B5F29CC42FF002A245D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		02C01B6829CC462E002A245D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		02C01B6929CC5CD4002A245D /* WeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
-		02C01B6B29CC8A48002A245D /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		02C01B6D29CC8AC3002A245D /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		02C01B6F29CC8F32002A245D /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -112,8 +108,6 @@
 			isa = PBXGroup;
 			children = (
 				02C01B5529CC42FE002A245D /* ViewController.swift */,
-				02C01B6B29CC8A48002A245D /* FirstViewController.swift */,
-				02C01B6D29CC8AC3002A245D /* SecondViewController.swift */,
 				02C01B6F29CC8F32002A245D /* SettingViewController.swift */,
 			);
 			path = Controller;
@@ -190,8 +184,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				02C01B6E29CC8AC3002A245D /* SecondViewController.swift in Sources */,
-				02C01B6C29CC8A48002A245D /* FirstViewController.swift in Sources */,
 				02C01B5629CC42FE002A245D /* ViewController.swift in Sources */,
 				02C01B6A29CC5CD4002A245D /* WeatherModel.swift in Sources */,
 				02C01B5229CC42FE002A245D /* AppDelegate.swift in Sources */,
