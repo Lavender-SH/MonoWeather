@@ -14,9 +14,17 @@ class ViewController: UIViewController {
     @IBOutlet weak var conditionImageview: UIImageView!
     @IBOutlet weak var cityLabel: UILabel!
     @IBOutlet weak var searchTextField: UITextField!
+    @IBOutlet weak var tempMinLabel: UILabel!
+    @IBOutlet weak var tempMaxLabel: UILabel!
+    @IBOutlet weak var sunRiseLabel: UILabel!
+    @IBOutlet weak var sunSetLabel: UILabel!
+    @IBOutlet weak var timeZoneLabel: UILabel!
+    @IBOutlet weak var descriptioNLabel: UILabel!
+    
     
     @IBAction func searchPressed(_ sender: UIButton) {
         searchTextField.endEditing(true)
+        searchTextField.resignFirstResponder()
     }
     
     @IBAction func findCurrentLocationButton(_ sender: UIButton) { locationManager.requestLocation()
@@ -27,7 +35,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setup()
         
         locationManager.delegate = self
         weatherManager.delegate = self
@@ -37,7 +45,13 @@ class ViewController: UIViewController {
         locationManager.requestWhenInUseAuthorization()
     }
     
-    
+    func setup() { searchTextField.keyboardType = UIKeyboardType.emailAddress
+        searchTextField.clearButtonMode = .always
+        searchTextField.becomeFirstResponder()
+    }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
 //    func setting(){
 //
 //        let tabBarVC = UITabBarController()
@@ -70,6 +84,13 @@ class ViewController: UIViewController {
                 self.temperatureLabel.text = weather.temperatureString
                 self.conditionImageview.image = UIImage(systemName: weather.conditionName)
                 self.cityLabel.text = weather.cityName
+                self.tempMinLabel.text = weather.tempMin.description
+                self.tempMaxLabel.text = weather.tempMax.description
+                self.sunRiseLabel.text = weather.sunRise.description
+                self.sunSetLabel.text = weather.sunSet.description
+                self.timeZoneLabel.text = weather.timeZone.description
+                self.descriptioNLabel.text = weather.discriptioN
+                
             }
         }
         func didFailWithError(error: Error) {
@@ -96,29 +117,43 @@ class ViewController: UIViewController {
     
     
     
-    extension ViewController: UITextFieldDelegate {
-        func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-            searchTextField.endEditing(true)
+extension ViewController: UITextFieldDelegate {
+    // 텍스트필드의 엔터키가 눌러지면 다음 동작을 허락할 것인지
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        searchTextField.endEditing(true)
+        return true
+    }
+    // 텍스트필드의 입력이 끝날 떄호출 (끝날지 말지를 허락)
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        
+        if textField.text != ""{
             return true
         }
-        
-        func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-            
-            if textField.text != ""{
-                return true
-            }
-            else{
-                textField.placeholder =  "Type a city"
-                return false
-            }
-        }
-        
-        func textFieldDidEndEditing(_ textField: UITextField) {
-            if let city = searchTextField.text{
-                weatherManager.fetchWeather(cityName: city)
-            }
-            searchTextField.text = ""
+        else{
+            textField.placeholder =  "Type a city"
+            return false
         }
     }
-
-
+    //텍스트필드의 입력이 끝났을때 호출 (시점)
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if let city = searchTextField.text{
+            weatherManager.fetchWeather(cityName: city)
+        }
+        searchTextField.text = ""
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        print(#function)
+        print("텍스트필드의 입력값: \(string)")
+        
+        // 입력되고 있는 글자가 "숫자"인 경우 입력을 허용하지 않는 논리
+        if Int(string) != nil {  // (숫자로 변환이 된다면 nil이 아닐테니)
+            return false
+        } else {
+            // 10글자이상 입력되는 것을 막는 코드
+            guard let text = textField.text else { return true }
+            let newLength = text.count + string.count - range.length
+            return newLength <= 10
+        }
+    }
+}
